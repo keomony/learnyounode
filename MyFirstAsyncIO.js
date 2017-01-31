@@ -1,16 +1,10 @@
 var fs = require('fs')
-var NumberOfLines = undefined
+var file = process.argv[2]
 
-
-function addOne(callback) {
-  fs.readFile(process.argv[2], function doneReading(err, fileContents) {
-    myNumber = fileContents.toString().split('\n').length - 1
-    callback()
-  })
-}
-
-function logMyNumber() {
-  console.log(myNumber)
-}
-
-addOne(logMyNumber)
+fs.readFile(file, function(err, contents) {
+  if(err){
+    return console.log(err)
+  }
+  var lines = contents.toString().split('\n').length - 1
+  console.log(lines)
+})
