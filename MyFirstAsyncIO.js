@@ -1,11 +1,17 @@
 var fs = require('fs')
-var file = process.argv[2]
+var myNumber = undefined
+function addOne(callback) {
+  fs.readFile(process.argv[1], function doneReading(err, fileContents) {
+    myNumber = parseInt(fileContents)
+    myNumber++
+    console.log("this is before callback")
+    callback()
+    console.log("this is after callback")
+  })
+}
 
-fs.readFile(file, function (e, cont) {
-  if (e) {
-    return console.log(e)
-  }
-  // fs.readFile(file, 'utf8', callback) can also be used
-  var lines = cont.toString().split('\n').length - 1
-  console.log(lines)
-})
+function logMyNumber() {
+  console.log(myNumber)
+}
+
+addOne(logMyNumber)
